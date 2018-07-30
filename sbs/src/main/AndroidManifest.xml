@@ -1,0 +1,72 @@
+<manifest
+    package="io.github.xwz.sbs"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="ANDROID.PERMISSION.RECEIVE_BOOT_COMPLETED"/>
+
+    <application
+        android:name="io.github.xwz.sbs.MainApplication"
+        android:allowBackup="true"
+        android:banner="@mipmap/banner"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Leanback">
+
+        <activity
+            android:name="io.github.xwz.sbs.activities.MainActivity"
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="io.github.xwz.sbs.activities.SearchActivity"/>
+        <activity android:name="io.github.xwz.sbs.activities.CategoryActivity"/>
+
+        <activity android:name="io.github.xwz.sbs.activities.DetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
+        <activity
+            android:name="io.github.xwz.sbs.activities.VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/PlayerTheme"/>
+
+        <receiver
+            android:name="io.github.xwz.sbs.activities.BootActivity"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="io.github.xwz.sbs.content.RecommendationsService"
+            android:enabled="true"/>
+
+        <provider
+            android:name="io.github.xwz.base.content.RecommendationBuilder$RecommendationBackgroundContentProvider"
+            android:authorities="io.github.xwz.sbs.recommendation"
+            android:exported="true"/>
+
+        <provider
+            android:name="io.github.xwz.sbs.content.SearchContentProvider"
+            android:authorities="io.github.xwz.sbs.search"
+            android:exported="true"/>
+
+    </application>
+
+</manifest>

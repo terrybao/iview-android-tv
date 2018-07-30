@@ -1,0 +1,28 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "28.0.0"
+
+    defaultConfig {
+        applicationId "io.github.xwz.abciview"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        buildConfigField 'String', 'AUTH_URL', getAppProp('IVIEW_AUTH_URL')
+        buildConfigField 'String', 'API_URL', getAppProp('IVIEW_API_URL')
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':base')
+}
